@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentiment Analyzer</title>
+</head>
+<body style="text-align:center; margin-top:60px; font-family:Arial;">
+
+    <h1>🍽️ Restaurant Review Sentiment Analysis</h1>
+
+    <form action="/predict" method="post">
+        <textarea name="review" rows="5" cols="50" placeholder="Enter your review here..."></textarea><br><br>
+        <button type="submit">Analyze</button>
+    </form>
+
+    <h2>{{ prediction_text }}</h2>
+
+</body>
+</html>
