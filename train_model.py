@@ -6,13 +6,12 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
-# Download stopwords
 nltk.download('stopwords')
 
-# Load dataset (make sure file is in same folder)
-df = pd.read_csv('Restaurant_Reviews.tsv', delimiter='\t')
+# Load CSV dataset
+df = pd.read_csv('restaurant_reviews.csv')
 
-# Text cleaning function
+# Clean text
 def clean_text(text):
     text = re.sub('[^a-zA-Z]', ' ', text)
     text = text.lower()
@@ -20,11 +19,10 @@ def clean_text(text):
     words = [w for w in words if w not in stopwords.words('english')]
     return ' '.join(words)
 
-# Apply cleaning
 df['clean_review'] = df['Review'].apply(clean_text)
 
 # Features
-cv = CountVectorizer(max_features=1500)
+cv = CountVectorizer(max_features=1000)
 X = cv.fit_transform(df['clean_review']).toarray()
 y = df['Liked']
 
@@ -36,4 +34,4 @@ model.fit(X, y)
 pickle.dump(model, open('model.pkl', 'wb'))
 pickle.dump(cv, open('vectorizer.pkl', 'wb'))
 
-print("✅ Model trained and saved!")
+print("✅ Model trained with CSV dataset!")
